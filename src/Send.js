@@ -16,7 +16,7 @@ export default class Send extends React.Component {
   //   return false;
   // }
   render() {
-    if (this.props.text.trim().length > 0) {
+    if (this.props.text.trim().length > 0 || this.props.alwaysShowSend) {
       return (
         <TouchableOpacity
           style={[styles.container, this.props.containerStyle]}
