@@ -16,9 +16,12 @@ import Time from './Time';
 import { isSameUser, isSameDay, warnDeprecated } from './utils';
 
 export default class Bubble extends React.Component {
+  state = {timeVisible: false}
+
   constructor(props) {
     super(props);
     this.onLongPress = this.onLongPress.bind(this);
+    this.onPress = this.onPress.bind(this);
   }
 
   handleBubbleToNext() {
@@ -76,6 +79,7 @@ export default class Bubble extends React.Component {
   }
 
   renderTime() {
+    if (!this.state.timeVisible) return null;
     if (this.props.currentMessage.createdAt) {
       const {containerStyle, wrapperStyle, ...timeProps} = this.props;
       if (this.props.renderTime) {
@@ -91,6 +95,10 @@ export default class Bubble extends React.Component {
       return this.props.renderCustomView(this.props);
     }
     return null;
+  }
+
+  onPress() {
+    this.setState({timeVisible: !this.state.timeVisible});
   }
 
   onLongPress() {
@@ -124,6 +132,7 @@ export default class Bubble extends React.Component {
         <View style={[styles[this.props.position].wrapper, this.props.wrapperStyle[this.props.position], this.handleBubbleToNext(), this.handleBubbleToPrevious()]}>
           <TouchableWithoutFeedback
             onLongPress={this.onLongPress}
+            onPress={this.onPress}
             accessibilityTraits="text"
             {...this.props.touchableProps}
           >

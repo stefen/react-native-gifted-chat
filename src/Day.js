@@ -7,7 +7,7 @@ import {
   ViewPropTypes,
 } from 'react-native';
 
-import moment from 'moment/min/moment-with-locales.min';
+import formatDate from 'date-fns/format';
 
 import { isSameDay, isSameUser, warnDeprecated } from './utils';
 
@@ -20,7 +20,7 @@ export default class Day extends React.Component {
         <View style={[styles.container, this.props.containerStyle]}>
           <View style={[styles.wrapper, this.props.wrapperStyle]}>
             <Text style={[styles.text, this.props.textStyle]}>
-              {moment(this.props.currentMessage.createdAt).locale(this.context.getLocale()).format(dateFormat).toUpperCase()}
+              {formatDate(this.props.currentMessage.createdAt, 'MMMM DD, YYYY')}
             </Text>
           </View>
         </View>

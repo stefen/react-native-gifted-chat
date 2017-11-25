@@ -8,7 +8,7 @@ import {
 } from 'react-native';
 
 import ActionSheet from '@expo/react-native-action-sheet';
-import moment from 'moment/min/moment-with-locales.min';
+
 import uuid from 'uuid';
 
 import * as utils from './utils';
@@ -120,7 +120,7 @@ class GiftedChat extends React.Component {
   }
 
   initLocale() {
-    if (this.props.locale === null || moment.locales().indexOf(this.props.locale) === -1) {
+    if (this.props.locale === null) {
       this.setLocale('en');
     } else {
       this.setLocale(this.props.locale);
@@ -549,6 +549,7 @@ GiftedChat.defaultProps = {
   }),
   onInputTextChanged: null,
   maxInputLength: null,
+  accessoryVisible: true,
   alwaysShowSend: false
 };
 
@@ -596,6 +597,7 @@ GiftedChat.propTypes = {
   keyboardShouldPersistTaps: PropTypes.oneOf(['always', 'never', 'handled']),
   onInputTextChanged: PropTypes.func,
   maxInputLength: PropTypes.number,
+  accessoryVisible: PropTypes.bool,
   alwaysShowSend: PropTypes.bool
 };
 

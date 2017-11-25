@@ -1,4 +1,6 @@
-import moment from 'moment';
+import isValid from 'date-fns/is_valid';
+import startOfDay from 'date-fns/start_of_day';
+import differenceInDays from 'date-fns/difference_in_days';
 
 const DEPRECATION_MESSAGE = 'isSameUser and isSameDay should be imported from the utils module instead of using the props functions';
 
@@ -8,14 +10,14 @@ export function isSameDay(currentMessage = {}, diffMessage = {}) {
     return false
   }
 
-  let currentCreatedAt = moment(currentMessage.createdAt);
-  let diffCreatedAt = moment(diffMessage.createdAt);
+  let currentCreatedAt = new Date(currentMessage.createdAt);
+  let diffCreatedAt = new Date(diffMessage.createdAt);
 
-  if (!currentCreatedAt.isValid() || !diffCreatedAt.isValid()) {
+  if (!isValid(currentCreatedAt) || !isValid(diffCreatedAt)) {
     return false;
   }
 
-  return currentCreatedAt.isSame(diffCreatedAt, 'day');
+  return differenceInDays(startOfDay(diffCreatedAt), startOfDay(currentCreatedAt)) === 0;
 
 }
 
